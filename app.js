@@ -1,5 +1,8 @@
 const WEATHER_CHECK_INTERVAL_MS = 1000 * 60 * 5;
 const CITY = 'Westerville, OH';
+const RED_PIN = 9;
+const GREEN_PIN = 6;
+const BLUE_PIN = 5;
 
 const noaaWeather = require('noaa-weather');
 const five = require("johnny-five");
@@ -59,7 +62,7 @@ WG.Weather = function() {
 
 WG.Led = function() {
 
-  let leds = five.Leds([9, 6, 5]);
+  let leds = five.Leds([RED_PIN, GREEN_PIN, BLUE_PIN]);
 
   let red = leds[0];
   let green = leds[1];
