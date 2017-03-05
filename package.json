@@ -4,11 +4,12 @@
   "description": "Show weather data using an Arduino, an RGB LED, Johnny Five, and a Raspberry Pi.",
   "author": "Guy Royse <guy@guyroyse.com> (http://guyroyse.com)",
   "license": "MIT",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/npm/npm.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/npm/npm.git"
   },
   "dependencies": {
-    "johnny-five": "^0.10.6"
+    "johnny-five": "^0.10.6",
+    "noaa-weather": "0.0.4"
   }
 }
