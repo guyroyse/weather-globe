@@ -62,46 +62,34 @@ WG.Weather = function() {
 
 WG.Led = function() {
 
-  let leds = five.Leds([RED_PIN, BLUE_PIN]);
+  let leds = five.Leds([RED_PIN, GREEN_PIN, BLUE_PIN]);
 
   let red = leds[0];
-  let blue = leds[1];
+  let green = leds[1]
+  let blue = leds[2];
 
   function applyTemperatureAndPrecipitation(temperature, chanceOfPrecipitation) {
     if (chanceOfPrecipitation === 0) {
-      displayWithoutPrecipitation(blueBrightness(temperature), redBrightness(temperature));
+      displayWithoutPrecipitation(temperature);
     } else {
-      displayWithPrecipitation(blueBrightness(temperature), redBrightness(temperature), pulseRate(chanceOfPrecipitation));
+      displayWithPrecipitation(temperature, pulseRate(chanceOfPrecipitation));
     }
   }
 
-  function displayWithoutPrecipitation(blueBrightness, redBrightness) {
-    leds.stop();
-    blue.fade(blueBrightness, 1000);
-    red.fade(redBrightness, 1000);
+  function displayWithoutPrecipitation(temperature) {
+    leds.stop().off();
+    ledForTemperature(temperature).on();
   }
 
-  function displayWithPrecipitation(blueBrightness, redBrightness, pulseRate) {
-    leds.pulse({
-      target: leds,
-      duration: pulseRate,
-      keyFrames: [
-        [0, redBrightness],
-        [0, blueBrightness]
-      ]
-    });
+  function displayWithPrecipitation(temperature, pulseRate) {
+    leds.stop().off();
+    ledForTemperature(temperature).pulse(pulseRate);
   }
 
-  function blueBrightness(temperature) {
-    return (60 - Math.min(clippedTemperature(temperature), 60)) / 40 * 255;
-  }
-
-  function redBrightness(temperature) {
-    return (Math.max(clippedTemperature(temperature), 40) - 40) / 40 * 255;
-  }
-
-  function clippedTemperature(temperature) {
-    return Math.min(80, Math.max(temperature, 20));
+  function ledForTemperature(temperature) {
+    if (temperature < 40) return blue;
+    if (temperature < 70) return green;
+    return red;
   }
 
   function pulseRate(chanceOfPrecipitation) {
