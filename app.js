@@ -62,11 +62,10 @@ WG.Weather = function() {
 
 WG.Led = function() {
 
-  let leds = five.Leds([RED_PIN, GREEN_PIN, BLUE_PIN]);
+  let leds = five.Leds([RED_PIN, BLUE_PIN]);
 
   let red = leds[0];
-  let green = leds[1];
-  let blue = leds[2];
+  let blue = leds[1];
 
   function applyTemperatureAndPrecipitation(temperature, chanceOfPrecipitation) {
     if (chanceOfPrecipitation === 0) {
@@ -87,7 +86,8 @@ WG.Led = function() {
       target: leds,
       duration: pulseRate,
       keyFrames: [
-        [0, redBrightness], [0, 0], [0, blueBrightness]
+        [0, redBrightness],
+        [0, blueBrightness]
       ]
     });
   }
